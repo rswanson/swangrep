@@ -1,6 +1,7 @@
 use std::env;
 use std::process;
-use std::error::Error;
+
+use swangrep::Config;
 
 use swangrep::Config;
 
