@@ -1,15 +1,17 @@
 use std::env;
-use std::fs;
+use std::process;
+
+use swangrep::Config;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let query = &args[1];
-    let path = &args[2];
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        eprintln!("Problem parsing arguments: {err}");
+        process::exit(1);
+    });
 
-    // println!("In file: {}", path);
-    let contents = fs::read_to_string(path)
-        .expect("Should have been able to read the file but could not");
-
-    // println!("With text: {}",contents);
-
+    if let Err(e) = swangrep::run(config) {
+        eprintln!("Application error: {e}");
+        process::exit(1);
+    }
 }
