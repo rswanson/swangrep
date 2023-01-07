@@ -15,3 +15,7 @@ fn main() {
         process::exit(1);
     }
 }
+
+fn error(message: &str) {
+    println!("Problem parsing arguments: {message}");
+}
